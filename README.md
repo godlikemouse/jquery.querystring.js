@@ -20,9 +20,17 @@ A plugin for handling query string manipulations.
 
 ## Quick Start
 
-Instantiate the query string object. This defaults to the current documents origin, protocol and host name.
+Instantiate the query string object. This defaults to the current documents origin, protocol and host name.  It will also parse any and all existing query string parameters either currently in the url or passed in.
 
     var qs = $.queryString();
+
+To iterate all existing query string parameters loop over the params object.
+
+    for(var key in qs.params){
+        var value = qs.params[key];
+        console.info(key, value);
+    }
+
 
 Add/Change/Delete query string parameters.
 
@@ -36,6 +44,15 @@ Compose the final query string.
 
     qs.toString(); //returns your current http://url?key=value
 
+## Constructor
+
+    $.queryString(url, options)
+
+| Argument | Description |
+| -------- | ----------- |
+| url | Specifies either the partial path or the full url. By default the current document.location object will be used if nothing is specified. |
+| options | Specifies the options structure to be used. |
+
 ## Options
 
 The following table specifies the options available to be used in conjunction with the plugin.
@@ -43,7 +60,7 @@ The following table specifies the options available to be used in conjunction wi
 | Name | Description |
 | ---- | ----------- |
 | encode | Specifies whether or not to uri encode query string arguments (default: true) |
-| format | Specifies the format separator to use with the query string. (default: "standard") |
+| format | Specifies the format separator to use with the query string, supports "standard" and "zend". (default: "standard") |
 
     var qs = $.queryString("some/path", {
         format: "zend"
