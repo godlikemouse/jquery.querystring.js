@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Example</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+        <script src="../src/jquery.querystring.js"></script>
+
+        <script>
+            $(function(){
+                var qs = $.queryString("zf");
+                qs.params.key = "value";
+                document.write(qs);
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

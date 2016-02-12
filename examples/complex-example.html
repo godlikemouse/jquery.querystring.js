@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complex Example</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+        <script src="../src/jquery.querystring.js"></script>
+
+        <script>
+            $(function(){
+                var qs = $.queryString("controller/view", {format: "zend"});
+                qs.params.hello = "world";
+                qs.params["dashed-key"] = "dashed-value";
+                qs.params["encoded-key"] = "{(encoded&+=|value)}";
+                document.write(qs);
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
