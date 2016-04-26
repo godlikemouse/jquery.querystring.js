@@ -31,6 +31,12 @@ To iterate all existing query string parameters loop over the params object.
         console.info(key, value);
     }
 
+To iterate all existing hash parameters loop over the hash object.
+
+	for(var key in qs.hash){
+		var value = qs.hash[key];
+		console.info(key, value);
+	}
 
 Add/Change/Delete query string parameters.
 
@@ -38,11 +44,19 @@ Add/Change/Delete query string parameters.
     qs.params.key = "world";
     delete qs.params.key;
 
-    qs.params.key = "value"
+    qs.params.key = "value";
+
+Add/Change/Delete hash string parameters
+
+	qs.hash.key = "hello";
+	qs.hash.key = "world";
+	delete qs.hash.key;
+
+	qs.hash.key = "value";
 
 Compose the final query string.
 
-    qs.toString(); //returns your current http://url?key=value
+    qs.toString(); //returns your current http://url?key=value#key=value
 
 ## Constructor
 

@@ -31,6 +31,7 @@ $.queryString = function(uri, options){
 	}, options);
 
 	_ref.params = {};
+	_ref.hash = {};
 
 	//build complete url when casting to string
 	_ref.toString = function(){
@@ -73,6 +74,17 @@ $.queryString = function(uri, options){
 		if(params.length)
 			url = origin + querySeparator + params.join(setSeparator);
 
+		//build hash array
+		var hash = [];
+		for(var i in _ref.hash){
+			var keyValue = [i, options.encode ? encode(_ref.hash[i]) : _ref.hash[i] ];
+			hash.push( keyValue.join("=") );
+		}
+
+		//compose url
+		if(hash.length)
+			url += "#" + hash.join("&");
+
 		return url;
 	}
 
@@ -93,6 +105,7 @@ $.queryString = function(uri, options){
 		_location = $("<a>").attr("href", uri).get(0);
 
 		if(options.format == "standard"){
+			//handle standard arguments
 			var params = _location.search.toString().replace("?", "").split("&");
 
 			for(var i in params){
@@ -102,6 +115,7 @@ $.queryString = function(uri, options){
 			}
 		}
 		else if(options.format == "zend"){
+			//handle zend arguments
 			var pathname = _location.pathname;
 			if(_ie) pathname = "/" + pathname;
 
@@ -110,6 +124,15 @@ $.queryString = function(uri, options){
 			for(var i=0; i<params.length; i+=2){
 				_ref.params[ params[i] ] = params[i+1];
 			}
+		}
+
+		//handle hash arguments
+		var hash = _location.hash.toString().replace("#", "").split("&");
+		
+		for(var i in hash){
+			var keyset = hash[i].split("=");
+			if(keyset[0] && keyset[1])
+				_ref.hash[ keyset[0] ] = keyset[1];
 		}
 	})()
 

@@ -7,10 +7,17 @@
 
         <script>
             $(function(){
-                var qs = $.queryString("controller/view", {format: "zend"});
+				var qs = $.queryString("controller/view", {format: "zend"});
+
+				//set some standard parameters
                 qs.params.hello = "world";
                 qs.params["dashed-key"] = "dashed-value";
-                qs.params["encoded-key"] = "{(encoded&+=|value)}";
+				qs.params["encoded-key"] = "{(encoded&+=|value)}";
+
+				//add some hash values
+				qs.hash.page = 1;
+				qs.hash.row = 42;
+
                 document.write(qs);
             });
         </script>
