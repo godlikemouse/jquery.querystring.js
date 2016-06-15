@@ -24,10 +24,17 @@ $.queryString = function(uri, options){
 	var _location = null;
 	var _ie = navigator.userAgent.indexOf("MSIE") > -1 ? true : false;
 
+	//method for uri encoding a string
+    function encode(value){
+        var regexp = /%20/g;
+		return encodeURIComponent(value).replace(regexp,'+');
+    }
+
     //extend default options
 	options = $.extend(true, {
 		encode: true,
-		format: "standard" //standard, zend
+		format: "standard", //standard, zend
+		encodeCallback: encode
 	}, options);
 
 	_ref.params = {};
@@ -65,7 +72,7 @@ $.queryString = function(uri, options){
         //build parameters array
 		var params = [];
 		for(var i in _ref.params){
-			var keyValue = [ i, options.encode ? encode(_ref.params[i]) : _ref.params[i] ];
+			var keyValue = [ i, options.encode ? options.encodeCallback(_ref.params[i]) : _ref.params[i] ];
 			params.push( keyValue.join(keySeparator) );
 		}
 
@@ -87,12 +94,6 @@ $.queryString = function(uri, options){
 
 		return url;
 	}
-
-    //method for uri encoding a string
-    function encode(value){
-        var regexp = /%20/g;
-		return encodeURIComponent(value).replace(regexp,'+');
-    }
 
 	//constructor
 	(function constructor(){
@@ -128,7 +129,7 @@ $.queryString = function(uri, options){
 
 		//handle hash arguments
 		var hash = _location.hash.toString().replace("#", "").split("&");
-		
+
 		for(var i in hash){
 			var keyset = hash[i].split("=");
 			if(keyset[0] && keyset[1])

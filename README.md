@@ -74,10 +74,12 @@ The following table specifies the options available to be used in conjunction wi
 | Name | Description |
 | ---- | ----------- |
 | encode | Specifies whether or not to uri encode query string arguments (default: true) |
+| encodeCallback | Specifies a function to use other than the default for encoding arguments |
 | format | Specifies the format separator to use with the query string, supports "standard" and "zend". (default: "standard") |
 
     var qs = $.queryString("some/path", {
-        format: "zend"
+        format: "zend",
+		encodeCallback: encodeURIComponent
     });
     qs.params.key = "value";
     document.location = qs.toString() //returns http://url/some/path/key/value
