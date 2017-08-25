@@ -22,7 +22,7 @@ A plugin for handling query string manipulations.
 
 Instantiate the query string object. This defaults to the current documents origin, protocol and host name.  It will also parse any and all existing query string parameters either currently in the url or passed in.
 
-    var qs = $.queryString();
+    var qs = new $.queryString();
 
 To iterate all existing query string parameters loop over the params object.
 
@@ -60,7 +60,7 @@ Compose the final query string.
 
 ## Constructor
 
-    $.queryString(url, options)
+    new $.queryString(url, options)
 
 | Argument | Description |
 | -------- | ----------- |
@@ -77,7 +77,7 @@ The following table specifies the options available to be used in conjunction wi
 | encodeCallback | Specifies a function to use other than the default for encoding arguments |
 | format | Specifies the format separator to use with the query string, supports "standard" and "zend". (default: "standard") |
 
-    var qs = $.queryString("some/path", {
+    var qs = new $.queryString("some/path", {
         format: "zend",
 		encodeCallback: encodeURIComponent
     });
