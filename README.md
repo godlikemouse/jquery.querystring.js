@@ -1,7 +1,7 @@
 jquery.querystring.js
 ==============
 
-A plugin for handling query string manipulations.
+A plugin for handling query string manipulations. Includes support for standard query string, non-standard slash query string and hash strings
 
 ## Compatibility
 
