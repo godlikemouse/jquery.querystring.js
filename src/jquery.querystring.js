@@ -22,7 +22,6 @@ $.queryString = function(uri, options){
 
 	var _ref = this;
 	var _location = null;
-	var _ie = navigator.userAgent.indexOf("MSIE") > -1 ? true : false;
 
 	//method for uri encoding a string
     function encode(value){
@@ -33,7 +32,7 @@ $.queryString = function(uri, options){
     //extend default options
 	options = $.extend(true, {
 		encode: true,
-		format: "standard", //standard, zend
+		format: "standard", //standard, slash
 		encodeCallback: encode
 	}, options);
 
@@ -46,11 +45,11 @@ $.queryString = function(uri, options){
 		var origin = _location.origin;
 		var pathname = _location.pathname;
 
-		if(_ie){
-			//why, because ie is terrible.
+        if(pathname.charAt(0) != "/")
 			pathname = "/" + _location.pathname;
+
+        if(!origin)
 			origin = _location.toString().split(pathname)[0];
-		}
 
 		var querySeparator = "?";
 		var keySeparator = "=";
@@ -62,10 +61,10 @@ $.queryString = function(uri, options){
 				origin += pathname;
 				break;
 
-			case "zend":
-				querySeparator = "";
-				keySeparator = "/";
-				setSeparator = "/";
+			case "slash":
+				querySeparator =
+                    keySeparator =
+                    setSeparator = "/";
 				break;
 		}
 
@@ -96,7 +95,7 @@ $.queryString = function(uri, options){
 	}
 
 	//constructor
-	(function constructor(){
+	function constructor(){
 
 		//fallback to current location
 		if(!uri)
@@ -115,16 +114,24 @@ $.queryString = function(uri, options){
 					_ref.params[ keyset[0] ] = keyset[1];
 			}
 		}
-		else if(options.format == "zend"){
+		else if(options.format == "slash"){
 			//handle zend arguments
 			var pathname = _location.pathname;
-			if(_ie) pathname = "/" + pathname;
+            if(pathname.charAt(0) != "/")
+			    pathname = "/" + pathname;
 
 			var params = pathname.split("/");
 
-			for(var i=0; i<params.length; i+=2){
-				_ref.params[ params[i] ] = params[i+1];
-			}
+            //parse values
+            for(var i=0; i<params.length; i++){
+                var key = params[i];
+                if($.trim(key).length == 0)
+                    continue;
+                else {
+                    _ref.params[ params[i] ] = params[i+1]
+                    i++;
+                }
+            }
 		}
 
 		//handle hash arguments
@@ -135,8 +142,8 @@ $.queryString = function(uri, options){
 			if(keyset[0] && keyset[1])
 				_ref.hash[ keyset[0] ] = keyset[1];
 		}
-	})()
+	}
+    constructor();
 
 	return _ref;
 }
-
