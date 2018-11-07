@@ -56,7 +56,7 @@ Add/Change/Delete hash string parameters
 
 Compose the final query string.
 
-    qs.toString(); //returns your current http://url?key=value#key=value
+    qs.toString(); //returns your current http://url?key=value#key=value (standard) http://url/key/value#key=value (slash)
 
 ## Constructor
 
