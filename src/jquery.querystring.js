@@ -39,17 +39,31 @@ $.queryString = function(uri, options){
 	_ref.params = {};
 	_ref.hash = {};
 
-	//build complete url when casting to string
-	_ref.toString = function(){
-
-		var origin = _location.origin;
-		var pathname = _location.pathname;
-
+    //retrieve location pathname
+    _ref.pathname = function(){
+        var pathname = _location.pathname;
         if(pathname.charAt(0) != "/")
 			pathname = "/" + _location.pathname;
 
+        return pathname;
+    }
+
+    //retrive location origin
+    _ref.origin = function(){
+
+        var pathname = _ref.pathname();
+        var origin = _location.origin;
         if(!origin)
 			origin = _location.toString().split(pathname)[0];
+
+        return origin;
+    }
+
+	//build complete url when casting to string
+	_ref.toString = function(){
+
+		var origin = _ref.origin();
+		var pathname = _ref.pathname();
 
 		var querySeparator = "?";
 		var keySeparator = "=";
