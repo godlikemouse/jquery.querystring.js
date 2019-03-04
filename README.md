@@ -93,6 +93,6 @@ Keep track of development and community news.
 
 ## License
 
-jquery.cube.js is released under [GPL, version 2.0](http://www.gnu.org/licenses/gpl-2.0.html)
+jquery.querystring.js is released under [GPL, version 2.0](http://www.gnu.org/licenses/gpl-2.0.html)
 
 
